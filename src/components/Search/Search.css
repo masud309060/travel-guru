@@ -1,0 +1,7 @@
+.search {
+    display: flex;
+    flex-wrap: wrap;
+}
+.search-hotel {
+    width: 50%;
+}

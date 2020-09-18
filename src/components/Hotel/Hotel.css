@@ -1,0 +1,21 @@
+.search-hotel-img img {
+    width: 280px;
+    margin-left: 10px;
+    
+}
+.search-hotel-info {
+    align-items: center;
+    margin: auto auto;
+}
+.search-hotel-info p {
+    color: gray;
+    font-size: 14px;
+}
+.search-hotel-info h4 {
+    color: #222;
+    font-size: 20px;
+}
+.search-hotel-info span {
+    color: black;
+    font-weight: bold;
+}

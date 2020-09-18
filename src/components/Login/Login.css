@@ -1,0 +1,41 @@
+.create-form {
+    width: 400px;
+    border: 1px solid gray;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    margin: auto auto;
+    padding: 20px;
+    color: black;
+
+}
+.create-form input {
+    outline: none;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid gray;
+    color: black;
+    background-color: #f1f1f1;
+}
+.fb-login, .google-login {
+    border: 1px solid gray;
+    width: 400px;
+    border-radius: 25px;
+    margin: 20px auto;
+    padding: 5px;
+    text-align: center;
+    display: flex;
+    cursor: pointer;
+    transition: 2s;
+}
+
+.fb-login:hover, .google-login:hover {
+    background-color: #0097e6;
+}
+.fb-login img, .google-login img{
+    height: 30px;
+    
+}
+.fb-login span , .google-login span{
+    text-align: center;
+    margin: 0 auto;
+}
