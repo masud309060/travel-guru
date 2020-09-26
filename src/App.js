@@ -11,6 +11,7 @@ import Booking from './components/Booking/Booking';
 import Login from './components/Login/Login';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Search from './components/Search/Search';
+import MapContainer from './components/Map/Map';
 
 export const travelContext = createContext()
 
@@ -31,21 +32,14 @@ function App() {
             <Route path="/home">
               <Home></Home>
             </Route>
-            <Route path="/booking/:exactpath">
-              <Booking></Booking>
-            </Route>
 
-            <PrivateRoute path="/search/:exactPath">
-              <Search/>
-            </PrivateRoute>
+              <Route path="/booking/:exactpath"> <Booking/> </Route>
 
-            <Route exact path="/login">
-              <Login></Login>
-            </Route>
+              <PrivateRoute path="/search/:exactpath"> <Search/> </PrivateRoute>
 
-            <Route path="/">
-              <Home></Home>
-            </Route>
+              <Route exact path="/login"> <Login/> </Route>
+
+              <Route path="/"> <Home/> </Route>
 
           </Switch>
         </Router>

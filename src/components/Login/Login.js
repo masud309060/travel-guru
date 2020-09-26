@@ -8,7 +8,7 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from './LoginManagement/firebase.config';
 import { travelContext } from '../../App';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 
 const Login = () => {
@@ -20,15 +20,14 @@ const Login = () => {
         firebase.initializeApp(firebaseConfig);
     }
     const [newUser, setNewUser] = useState(true)
-    const { userLogin, travelArea } = React.useContext(travelContext);
+    const {  userLogin } = React.useContext(travelContext);
     const [loginUser, setLoginUser] = userLogin;
-    const [place] = travelArea;
-    console.log(loginUser)
 
     const handleBlur = (e) => {
         let isFormValid = true;
         if(e.target.name === "email"){
-            isFormValid = /\S+@\S+\.\S+/.test(e.target.value);
+            const re = /\S+@\S+\.\S+/
+            isFormValid = re.test(e.target.value);
         }
         if(e.target.name === "password") {
             const rex = /^(?=.*\d)(?=.*[a-z]).{8,}$/;
@@ -39,7 +38,6 @@ const Login = () => {
             newUserInfo[e.target.name] = e.target.value;
             setLoginUser(newUserInfo)
         }
-
     }
 
     const updateUserName = name => {
@@ -55,42 +53,56 @@ const Login = () => {
     }
 
     const handleSubmit = (e) => {
-        //## Sign up methot
-        if(newUser && loginUser.email && loginUser.password) {
+        console.log("clicked handle submit")
+        if(newUser && loginUser.email && loginUser.password){
             firebase.auth().createUserWithEmailAndPassword(loginUser.email, loginUser.password)
-            .then(result => {
-                const newUserInfo = {...loginUser};
-                newUserInfo.error = "";
-                newUserInfo.loginSuccess = true;
+            .then(res => {
+                const newUserInfo = {...loginUser}
+                newUserInfo.error = ""
+                newUserInfo.loginSuccess = true
+                newUserInfo.isSignIn = true
                 setLoginUser(newUserInfo)
-                history.replace(from);
                 updateUserName(loginUser.name)
+                history.replace(from);
             })
-            .catch(err => {
-                const newUserInfo = {...loginUser};
-                newUserInfo.loginSuccess = false;
-                newUserInfo.error = err.message;
+            .catch(error => {
+                const newUserInfo = {...loginUser}
+                newUserInfo.error = error.message
+                newUserInfo.loginSuccess = false
+                newUserInfo.isSignIn = false
                 setLoginUser(newUserInfo)
               });
         }
-        //## Sign in Methot ## 
-        if(!newUser && loginUser.email && loginUser.password) {
+
+        if(!newUser && loginUser.email && loginUser.password){
             firebase.auth().signInWithEmailAndPassword(loginUser.email, loginUser.password)
-            .then(result => {
-                const newUserInfo = {...loginUser};
+            .then(res => {
+                console.log(res)
+                const newUserInfo = {...loginUser}
                 newUserInfo.error = ""
                 newUserInfo.loginSuccess = true
-                setLoginUser(newUserInfo);
+                newUserInfo.isSignIn = true
+                newUserInfo.name= res.user.displayName
+                setLoginUser(newUserInfo)
                 history.replace(from);
             })
             .catch(function(error) {
-                const newUserInfo = {...loginUser};
-                newUserInfo.loginSuccess = false;
-                newUserInfo.error = error.message;
+                const newUserInfo = {...loginUser}
+                newUserInfo.error = error.message
+                newUserInfo.loginSuccess = false
+                newUserInfo.isSignIn = false
                 setLoginUser(newUserInfo)
               });
         }
         e.preventDefault();
+    }
+
+    const handleSignOut = () =>{
+        firebase.auth().signOut().then(function() {
+            console.log("signOut")
+          }).catch(function(error) {
+            // An error happened.
+          });
     }
 
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -130,42 +142,35 @@ const Login = () => {
 
     }
 
+
     return (
         <div className="container">
-            <HeaderD></HeaderD>
+            <HeaderD handleSignOut={handleSignOut}></HeaderD>
             <div className="login-form">
                 <div className="create-form">
                     <form onSubmit={handleSubmit}>
                         <h3>Create an account</h3>
-                        {newUser?
+                        {newUser &&
                         <>
-                        <input type="text" onBlur={handleBlur} name="name" className="form-control my-3" placeholder="First Name"/>
+                        <input type="text" onBlur={handleBlur} name="name" className="form-control my-3" placeholder="First Name" required/>
                         <input type="text" onBlur={handleBlur} name="last" className="form-control my-3" placeholder="Last Name (Optional)"/>
-                        </>: ''}
+                        </>}
                         <input type="email" onBlur={handleBlur} name="email" className="form-control my-3" placeholder="Username or Email" required/>
                         <input type="password" onBlur={handleBlur} name="password" className="form-control my-3" placeholder="Password" required/>
                         {newUser? <input type="password" onBlur={handleBlur} name="confirm-password" className="form-control my-3" placeholder="Confirm Password" required/>:""}
-                        <Link to={`/search/${place}`}>
                         <input type="submit" className="btn btn-warning start-booking-btn" value={newUser? "Create an account": "Login"}/>
-                        {/* {
-                        newUser? <button type="submit" className='btn btn-warning start-booking-btn'>Create an account</button>
-                        : <button type="submit" className='btn btn-warning start-booking-btn'>Login</button>
-                        } */}
-                        </Link>
-                        {newUser? <div className="text-center">
-                        <small>Already have an account? </small> 
-                        <small onClick={()=> setNewUser(!newUser)}><a href="#"> Login</a></small>
-                        </div> : 
+
+                       
                         <div className="text-center">
-                        <small>Create a new account? </small> 
-                        <small onClick={()=> setNewUser(!newUser)}><a href="#"> Sign up</a></small>
-                        </div>}
+                            <small>{newUser ? "Already have an account? ": "Create an account? "}</small>
+                            <small onClick={()=> setNewUser(!newUser)} style={{cursor:"pointer", color:"orange", borderBottom:"1px solid orange"}}> {newUser? " Sign in": " Sign up"}</small>
+                        </div>
                     </form>
-                </div>
+                </div> 
 
                     <p style={{textAlign: "center", color: "red", margin: "10px"}}>{loginUser.error}</p>
                     {
-                        loginUser.loginSuccess && 
+                        loginUser.loginSuccess &&
                         <p style={{textAlign: "center", color: "green", padding: "10px", border: "1px solid green"}}>
                             your account {newUser? "create": "logged in"} succesfully</p>
                     }

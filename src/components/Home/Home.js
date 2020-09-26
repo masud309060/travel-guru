@@ -48,7 +48,7 @@ const Home = () => {
                 </Link>
 
                 <Link to={`/booking/${place}`}>
-                <div className="img3" onClick={()=>setPlace("sundarban's")}>
+                <div className="img3" onClick={()=>setPlace("sundarbans")}>
                     <div className="img-album">
                         <img src={sundarban} alt=""/>
                         <h3>SUNDARBAN'S</h3>

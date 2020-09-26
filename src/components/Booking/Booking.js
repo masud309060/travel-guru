@@ -6,7 +6,7 @@ import './Booking.css'
 import { Form } from 'react-bootstrap';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -27,6 +27,7 @@ const Booking = () => {
     const [travelPlace, setTravelPlace] = useState([])
     const {travelArea} = React.useContext(travelContext)
     const [place, setPlaces] = travelArea;
+    const { exactpath } = useParams()
 
     useEffect(()=> {
         const matchPlace = places.filter(item=> item.name.toLowerCase() === place)
@@ -88,7 +89,7 @@ const Booking = () => {
                                     />
                                 </form>
                                 </div>
-                                <Link to={`/search/${travelPlace.name}`}><button className='btn btn-warning start-booking-btn'>Start Booking</button></Link>
+                                <Link to={`/search/${exactpath}`}><button className='btn btn-warning start-booking-btn'>Start Booking</button></Link>
                                 </Form>
 
                             </div>

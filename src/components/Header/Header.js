@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import { Button, Form, FormControl, Nav, Navbar } from "react-bootstrap";
-import logo from "../../images/Logo-white.png";
 import { travelContext } from "../../App";
+import logo2 from "../../images/Logo-white.png";
 
 
 const Header = () => {
   const {userLogin} = React.useContext(travelContext)
-  const [loginUser, setLoginUser] = userLogin;
+  const [loginUser] = userLogin;
   return (
     <div>
       <Navbar variant="dark">
         <Navbar.Brand>
-          <img style={{height: "60px"}} src={logo} alt="" />
+          <img style={{height: "60px"}} src={logo2} alt="" />
         </Navbar.Brand>
         <Form inline>
           <FormControl
