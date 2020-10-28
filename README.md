@@ -1,4 +1,5 @@
-![](https://i.ibb.co/4tCMXr3/Logo.png) 
+ 
+<img src="https://i.ibb.co/4tCMXr3/Logo.png" alt="" height="100"/> <br/>
 
 ## Travel Guru (Intro Projects)
 
