@@ -1,11 +1,11 @@
  
 <img src="https://i.ibb.co/4tCMXr3/Logo.png" alt="" height="100"/> <br/>
 
-## Travel Guru (Intro Projects)
+# **Travel Guru** (Intro Projects)
 
 Basically a travel hotel booking site. Find best hotel package within reasonable range. You can select a place which will route you a new booking page. Then we can fixed the booking date. That will show some hotel and show the hotle location with google map. 
 
-[Live Link](https://travel-guru-1db67.web.app/) 
+### [Live Link](https://travel-guru-1db67.web.app/ "Travel Guru") 
 
 ### `Project Specifications`
 - Awesome and fresh looking landing page.  
@@ -24,8 +24,6 @@ Basically a travel hotel booking site. Find best hotel package within reasonable
 - React Hook forms  
 - Firebase Authentication (Google `sign in`) 
 
-<hr/>
-
-
 
 ### `Thank You`
+> **follow me** [GitHub](https://github.com/masud309060) [LinkedIn](https://www.linkedin.com/in/masud309060/) [Portfolio](https://portfolio-of-md-masud-rana.netlify.app/)
